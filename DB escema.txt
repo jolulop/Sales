@@ -1,0 +1,127 @@
+CREATE TABLE OPORTUNIDADES (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    descripcion VARCHAR(255) NOT NULL,
+    cliente INT,
+    empleado_cliente INT,
+    responsable INT,
+    estado VARCHAR(30) NOT NULL,
+    probabilidad INT,
+    importe_local MONEY,
+    importe_eur MONEY,
+    descuento INT,
+    importe_desc_local MONEY,
+    importe_desc_eur MONEY,
+    importe_desc_local_ponderado MONEY,
+    importe_desc_eur_ponderado MONEY,
+    fecha_creacion DATE,
+    fecha_est_cierre DATE,
+    fecha_real_cierre DATE,
+    actualizada DATETIME NOT NULL,
+    CONSTRAINT UQ_actualizada UNIQUE (actualizada)
+);
+
+
+ALTER TABLE OPORTUNIDADES
+ADD CONSTRAINT FK_OPORTUNIDADES_CLIENTE FOREIGN KEY (cliente) REFERENCES CLIENTES(id),
+ADD CONSTRAINT FK_OPORTUNIDADES_EMPLEADO_CLIENTE FOREIGN KEY (empleado_cliente) REFERENCES EMPLEADO(id),
+ADD CONSTRAINT FK_OPORTUNIDADES_RESPONSABLE FOREIGN KEY (responsable) REFERENCES RESPONSABLE(id);
+*****************************************************
+
+CREATE TABLE CLIENTES (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    ID_fiscal VARCHAR(255),
+    parent_id INT,
+    sector VARCHAR(255),
+    pais VARCHAR(255),
+    tamaño VARCHAR(255),
+    observaciones VARCHAR(255),
+    estado VARCHAR(30),
+    clasificacion VARCHAR(30),
+    actualizada DATETIME NOT NULL
+);
+
+
+ALTER TABLE CLIENTES
+ADD CONSTRAINT FK_CLIENTES_PARENT_ID FOREIGN KEY (parent_id) REFERENCES CLIENTES(id);
+
+*****************************************************
+
+CREATE TABLE TIMIA_UNIT (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    ID_fiscal VARCHAR(255),
+    parent_id INT,
+    pais VARCHAR(255),
+    observaciones VARCHAR(255),
+    actualizada DATETIME NOT NULL
+);
+
+ALTER TABLE TIMIA_UNIT
+ADD CONSTRAINT FK_TIMIA_UNIT_COMPANY_ID FOREIGN KEY (parent_id) REFERENCES CLIENTES(id);
+
+***********************************
+CREATE TABLE PERSONAS (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    apellidos VARCHAR(255),
+    company_id INT,
+    telefono1 CHAR(12),
+    telefono2 CHAR(12),
+    email1 VARCHAR(255),
+    email2 VARCHAR(255),
+    actualizada DATETIME NOT NULL
+);
+
+
+
+***********************************
+CREATE TABLE EMPLEADO (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    person_id INT NOT NULL,
+    company_id INT NOT NULL,
+    cargo VARCHAR(255),
+    departamento VARCHAR(255),
+    actualizada DATETIME NOT NULL
+);
+
+
+ALTER TABLE EMPLEADO
+ADD CONSTRAINT FK_EMPLEADO_COMPANY_ID FOREIGN KEY (company_id) REFERENCES CLIENTES(id);
+ADD CONSTRAINT FK_EMPLEADO_PERSON_ID FOREIGN KEY (person_id) REFERENCES PERSONAS(id),
+
+
+***********************************
+CREATE TABLE RESPONSABLE (
+    id INT IDENTITY(1,1)  PRIMARY KEY,
+    person_id INT NOT NULL,
+    timia_id INT NOT NULL,
+    cargo VARCHAR(255),
+    departamento VARCHAR(255),
+    actualizada DATETIME NOT NULL
+);
+
+ALTER TABLE RESPONSABLE
+ADD CONSTRAINT FK_RESPONSABLE_TIMIA_ID FOREIGN KEY (timia_id) REFERENCES TIMIA_UNIT(id);
+ADD CONSTRAINT FK_RESPONSABLE_PERSON_ID FOREIGN KEY (person_id) REFERENCES PERSONAS(id),
+
+********************************
+CREATE TABLE ACCION (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    descripcion VARCHAR(1000),
+    empleado_id INT NOT NULL,
+    oportunidad_id INT,
+    responsable_id INT NOT NULL,
+    actualizada DATETIME NOT NULL
+);
+
+ALTER TABLE ACCION
+ADD CONSTRAINT FK_ACCION_EMPLEADO_ID FOREIGN KEY (empleado_id) REFERENCES EMPLEADO(id),
+ADD CONSTRAINT FK_ACCION_OPORTUNIDAD_ID FOREIGN KEY (oportunidad_id) REFERENCES OPORTUNIDADES(id),
+ADD CONSTRAINT FK_ACCION_RESPONSABLE_ID FOREIGN KEY (responsable_id) REFERENCES RESPONSABLE(id);
+
+
+**********************************
+

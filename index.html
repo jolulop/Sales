@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-tab Web Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="tabs">
+        <button class="tablink" onclick="openTab(event, 'Home')">Home</button>
+        <button class="tablink" onclick="openTab(event, 'About')">About</button>
+        <button class="tablink" onclick="openTab(event, 'Contact')">Contact</button>
+    </div>
+
+    <div id="Home" class="tabcontent">
+        <h2>Home</h2>
+        <p>Welcome to the Home page!</p>
+    </div>
+
+    <div id="About" class="tabcontent">
+        <h2>About</h2>
+        <p>Learn more about us on this page.</p>
+    </div>
+
+    <div id="Contact" class="tabcontent">
+        <h2>Contact</h2>
+        <p>Get in touch with us!</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

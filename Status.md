@@ -1,0 +1,2 @@
+Estado del proyecto: tras hacer que funciones la pantalla de clientes en tlinter_1.py pasé a tener una estructura de ficheros para cada tab. Esto no funciona, hay 4 warnings, pero no sigo haciendo debug dado que no aporta nada.
+El chat del proyecto es https://chatgpt.com/share/958b54b0-7167-4c33-ab1a-0d6eff1db1c7

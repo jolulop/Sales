@@ -1,11 +1,11 @@
 import tkinter as tk
 from tkinter import ttk
-from clientes import crear_tab_clientes
-from empleados import crear_tab_empleados
-from oportunidades import crear_tab_oportunidades
-from timia import crear_tab_timia
-from responsables import crear_tab_responsables
-from acciones import crear_tab_acciones
+from repo_old.clientes import crear_tab_clientes
+from repo_old.empleados import crear_tab_empleados
+from repo_old.oportunidades import crear_tab_oportunidades
+from repo_old.timia import crear_tab_timia
+from repo_old.responsables import crear_tab_responsables
+from repo_old.acciones import crear_tab_acciones
 
 def main():
     root = tk.Tk()

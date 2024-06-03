@@ -23,3 +23,12 @@ function openTab(evt, tabName) {
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementsByClassName("tablink")[0].click();
 });
+
+function fetchTime() {
+    fetch('https://sales-flaskapp.azurewebsites.net/time')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('timeBox').value = data.time;
+        })
+        .catch(error => console.error('Error fetching time:', error));
+}
